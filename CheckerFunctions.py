@@ -74,6 +74,6 @@ def changes_checker(new_data, url):
             storage[url] = new_data
 
     with open('data.json', 'w') as f:
-        json.dump(storage, f, ensure_ascii=False)
+        json.dump(storage, f)
 
     return changes
