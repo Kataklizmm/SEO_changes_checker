@@ -1,4 +1,5 @@
 import time
+import webbrowser
 import CheckerFunctions as CF
 
 # Взять урлы из файла urls и проверить каждый. В конце открыть блокнот со списком ошибок если они имеются
@@ -26,6 +27,7 @@ if __name__ == '__main__':
             for i in bad_responses:
                 errors.write(i + '\n')
         errors.close()
+        webbrowser.open("errors.txt")
         print('Есть изменения, смотри errors.txt')
     else:
         print('Проверка закончена. Изменений не обнаружено')
