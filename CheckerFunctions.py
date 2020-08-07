@@ -17,7 +17,8 @@ def get_url_data(url):
     # Пробуем получить ответ, если 200 - собираем нужные данные, если нет, записываем URL в список "плохих"
     try:
         bad_response = None
-        r = requests.get(url, allow_redirects=False)
+headers = {'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10A5376e Safari/8536.25',}
+        r = requests.get(url, headers=headers, allow_redirects=False)
         rawhtml = BeautifulSoup(r.text, 'lxml')  # Здесь голая HTML
         # Собираем нужные данные
         response = str(r.status_code)
