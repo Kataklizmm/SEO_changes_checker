@@ -12,6 +12,7 @@ else:
     f.close()
     storage = {}
 
+#bad_responses = []
 # Функция получает ответ сервера и метатеги
 def get_url_data(url):
     # Пробуем получить ответ, если 200 - собираем нужные данные, если нет, записываем URL в список "плохих"
@@ -19,14 +20,19 @@ def get_url_data(url):
     try:
         r = requests.get(url, headers=headers, allow_redirects=False)
     except:
-        bad_response = str(url) + ' - Нет ответа'
+        bad_response = {'response': 'Нет ответа', 'title': None, 'h1': None,
+                'description': None, 'canonical': None, 'meta_robots': None, 'x_robots_tag': None}
+        bad_responses.append(str(url) + ' - Нет ответа')
         return bad_response
 
     rawhtml = BeautifulSoup(r.text, 'lxml')  # Здесь голая HTML
     # Собираем нужные данные
     response = str(r.status_code)
+    print(response)
     if response != '200':
-        bad_responce = str(url) + ' - ' + str(response)
+        bad_responce = {'response': response, 'title': None, 'h1': None,
+                'description': None, 'canonical': None, 'meta_robots': None, 'x_robots_tag': None}
+        bad_responses.append(str(url) + ' ' + str(response))
         return  bad_responce
     title = rawhtml.title
     if title:
