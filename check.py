@@ -6,7 +6,7 @@ import CheckerFunctions as CF
 if __name__ == '__main__':
     urls = open('urls.txt', 'r')
     changes = []
-    bad_responses = []
+    CF.bad_responses = []
 
     for url in urls:
         url = url.strip()
@@ -14,17 +14,17 @@ if __name__ == '__main__':
         if type(new_data) == dict:
             changes.extend(CF.changes_checker(new_data, url))
         else:
-            bad_responses.append(new_data)
+            CF.bad_responses.append(new_data)
 
         time.sleep(0.2)
 
-    if len(changes) > 0 or len(bad_responses) > 0:
+    if len(changes) > 0 or len(CF.bad_responses) > 0:
         errors = open('errors.txt', 'w', encoding='utf-8')
         for change in changes:
             errors.write(change + '\n')
-        if bad_responses:
+        if CF.bad_responses:
             errors.write('Страницы не 200: \n')
-            for i in bad_responses:
+            for i in CF.bad_responses:
                 errors.write(i + '\n')
         errors.close()
         webbrowser.open("errors.txt")
