@@ -25,7 +25,6 @@ def get_url_data(url):
     rawhtml = BeautifulSoup(r.text, 'lxml')  # Здесь голая HTML
     # Собираем нужные данные
     response = str(r.status_code)
-    print(response)
     if response != '200':
         bad_responce = str(url) + ' - ' + str(response)
         return  bad_responce
