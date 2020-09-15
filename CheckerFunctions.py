@@ -37,7 +37,7 @@ def get_url_data(url):
         return  bad_responce
     title = rawhtml.title
     if title:
-        title = re.sub(r' \d{2,} ', ' *** ', title.text)
+        title = re.sub(r' \d+ р| [\d ]+₽', '***р', title.text)
 
     h1 = rawhtml.h1
     if h1:
@@ -49,7 +49,7 @@ def get_url_data(url):
 
     description = rawhtml.head.find('meta', attrs={'name': 'description'})
     if description:
-        description = re.sub(r' \d{2,} ', ' *** ', description['content'])
+        description = re.sub(r' \d+ р| [\d ]+₽', '***р', description['content'])
 
     meta_robots = rawhtml.head.select('[name=robots], [name=googlebot], [name=yandex]')
     if meta_robots:
