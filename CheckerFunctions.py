@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import json
 import os
+import re
 
 
 if os.path.isfile('data.json'):
@@ -36,7 +37,7 @@ def get_url_data(url):
         return  bad_responce
     title = rawhtml.title
     if title:
-        title = title.text
+        title = re.sub(r' \d{2,} ', ' *** ', title.text)
 
     h1 = rawhtml.h1
     if h1:
@@ -48,7 +49,7 @@ def get_url_data(url):
 
     description = rawhtml.head.find('meta', attrs={'name': 'description'})
     if description:
-        description = description['content']
+        description = re.sub(r' \d{2,} ', ' *** ', description['content'])
 
     meta_robots = rawhtml.head.select('[name=robots], [name=googlebot], [name=yandex]')
     if meta_robots:
